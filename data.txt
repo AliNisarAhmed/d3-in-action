@@ -1,0 +1,5 @@
+tweets.json
+https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/tweets.json
+
+cities.csv
+https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/cities.csv
