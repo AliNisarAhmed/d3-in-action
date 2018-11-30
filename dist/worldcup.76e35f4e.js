@@ -27855,7 +27855,7 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package":"node_modules/d3/dist/package.js","d3-array":"node_modules/d3-array/src/index.js","d3-axis":"node_modules/d3-axis/src/index.js","d3-brush":"node_modules/d3-brush/src/index.js","d3-chord":"node_modules/d3-chord/src/index.js","d3-collection":"node_modules/d3-collection/src/index.js","d3-color":"node_modules/d3-color/src/index.js","d3-contour":"node_modules/d3-contour/src/index.js","d3-dispatch":"node_modules/d3-dispatch/src/index.js","d3-drag":"node_modules/d3-drag/src/index.js","d3-dsv":"node_modules/d3-dsv/src/index.js","d3-ease":"node_modules/d3-ease/src/index.js","d3-fetch":"node_modules/d3-fetch/src/index.js","d3-force":"node_modules/d3-force/src/index.js","d3-format":"node_modules/d3-format/src/index.js","d3-geo":"node_modules/d3-geo/src/index.js","d3-hierarchy":"node_modules/d3-hierarchy/src/index.js","d3-interpolate":"node_modules/d3-interpolate/src/index.js","d3-path":"node_modules/d3-path/src/index.js","d3-polygon":"node_modules/d3-polygon/src/index.js","d3-quadtree":"node_modules/d3-quadtree/src/index.js","d3-random":"node_modules/d3-random/src/index.js","d3-scale":"node_modules/d3-scale/src/index.js","d3-scale-chromatic":"node_modules/d3-scale-chromatic/src/index.js","d3-selection":"node_modules/d3-selection/src/index.js","d3-shape":"node_modules/d3-shape/src/index.js","d3-time":"node_modules/d3-time/src/index.js","d3-time-format":"node_modules/d3-time-format/src/index.js","d3-timer":"node_modules/d3-timer/src/index.js","d3-transition":"node_modules/d3-transition/src/index.js","d3-voronoi":"node_modules/d3-voronoi/src/index.js","d3-zoom":"node_modules/d3-zoom/src/index.js"}],"tweets.js":[function(require,module,exports) {
+},{"./dist/package":"node_modules/d3/dist/package.js","d3-array":"node_modules/d3-array/src/index.js","d3-axis":"node_modules/d3-axis/src/index.js","d3-brush":"node_modules/d3-brush/src/index.js","d3-chord":"node_modules/d3-chord/src/index.js","d3-collection":"node_modules/d3-collection/src/index.js","d3-color":"node_modules/d3-color/src/index.js","d3-contour":"node_modules/d3-contour/src/index.js","d3-dispatch":"node_modules/d3-dispatch/src/index.js","d3-drag":"node_modules/d3-drag/src/index.js","d3-dsv":"node_modules/d3-dsv/src/index.js","d3-ease":"node_modules/d3-ease/src/index.js","d3-fetch":"node_modules/d3-fetch/src/index.js","d3-force":"node_modules/d3-force/src/index.js","d3-format":"node_modules/d3-format/src/index.js","d3-geo":"node_modules/d3-geo/src/index.js","d3-hierarchy":"node_modules/d3-hierarchy/src/index.js","d3-interpolate":"node_modules/d3-interpolate/src/index.js","d3-path":"node_modules/d3-path/src/index.js","d3-polygon":"node_modules/d3-polygon/src/index.js","d3-quadtree":"node_modules/d3-quadtree/src/index.js","d3-random":"node_modules/d3-random/src/index.js","d3-scale":"node_modules/d3-scale/src/index.js","d3-scale-chromatic":"node_modules/d3-scale-chromatic/src/index.js","d3-selection":"node_modules/d3-selection/src/index.js","d3-shape":"node_modules/d3-shape/src/index.js","d3-time":"node_modules/d3-time/src/index.js","d3-time-format":"node_modules/d3-time-format/src/index.js","d3-timer":"node_modules/d3-timer/src/index.js","d3-transition":"node_modules/d3-transition/src/index.js","d3-voronoi":"node_modules/d3-voronoi/src/index.js","d3-zoom":"node_modules/d3-zoom/src/index.js"}],"worldcup.js":[function(require,module,exports) {
 "use strict";
 
 var d3 = _interopRequireWildcard(require("d3"));
@@ -27870,74 +27870,72 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-d3.json("https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/tweets.json").then(function (data) {
-  draw(_toConsumableArray(data.tweets));
-  impact(_toConsumableArray(data.tweets));
+d3.csv(" https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/worldcup.csv").then(function (data) {
+  draw(_toConsumableArray(data));
 });
 
 function draw(incomingData) {
   console.log(incomingData);
-  var nestedTweets = d3.nest().key(function (d) {
-    return d.user;
-  }).entries(incomingData);
-  console.log(nestedTweets);
-  nestedTweets.forEach(function (d) {
-    d.numTweets = d.values.length;
+  var svg = d3.select("#svg3");
+  svg.append('g').attr("id", "teamsG").attr('transform', "translate(50, 300)").selectAll('g').data(incomingData).enter().append('g').attr('class', 'overallG').attr('transform', function (d, i) {
+    return "translate(".concat(i * 50, ", 0)");
   });
-  var maxTweets = d3.max(nestedTweets, function (d) {
-    return d.numTweets;
+  var teamG = d3.selectAll('g.overallG');
+  teamG.append('circle').attr('r', 0).transition().delay(function (d, i) {
+    return i * 100;
+  }).duration(500).attr('r', 40).transition().duration(500).attr('r', 20);
+  teamG.append('text').attr("y", 30).text(function (d) {
+    return d.team;
   });
-  var yScale = d3.scaleLinear().domain([0, maxTweets]).range([0, 500]);
-  d3.select('#svg').selectAll('rect').data(nestedTweets).enter().append('rect').attr('width', 50).attr('height', function (d) {
-    return yScale(d.numTweets);
-  }).attr('x', function (d, i) {
-    return i * 60;
-  }).attr('y', function (d) {
-    return 500 - yScale(d.numTweets);
-  }).style('fill', "#A23422").style('stroke', '#fd3453').style('stroke-width', "2px");
-}
+  var dataKeys = Object.keys(incomingData[0]).filter(function (d) {
+    return d !== "team" && d !== "region";
+  });
+  d3.select("#controls").selectAll("button.teams").data(dataKeys).enter().append("button").on("click", buttonClick).html(function (d) {
+    return d;
+  });
 
-function impact(incomingData) {
-  console.log(incomingData);
-  incomingData.forEach(function (d) {
-    d.impact = d.favorites.length + d.retweets.length;
-    d.tweetTime = new Date(d.timestamp);
-  });
-  var maxImpact = d3.max(incomingData, function (d) {
-    return d.impact;
-  });
-  var startEnd = d3.extent(incomingData, function (d) {
-    return d.tweetTime;
-  });
-  var timeRamp = d3.scaleTime().domain(startEnd).range([20, 480]);
-  var yScale = d3.scaleLinear().domain([0, maxImpact]).range([0, 460]);
-  var radiusScale = d3.scaleLinear().domain([0, maxImpact]).range([5, 20]);
-  var colorScale = d3.scaleLinear().domain([0, maxImpact]).range(["blue", "red"]);
-  d3.select("#svg2").selectAll('circle').data(incomingData, JSON.stringify).enter().append('circle').attr('r', function (d) {
-    return radiusScale(d.impact);
-  }).attr('cx', function (d) {
-    return timeRamp(d.tweetTime);
-  }).attr('cy', function (d) {
-    return 480 - yScale(d.impact);
-  }).style('fill', function (d) {
-    return colorScale(d.impact);
-  }).style('stroke', 'black').style('stroke-width', '1px');
-  var tweetG = d3.select("#svg2").selectAll('g').data(incomingData).enter().append('g').attr('transform', function (d) {
-    return "translate(".concat(timeRamp(d.tweetTime), ", ").concat(480 - yScale(d.impact), ")");
-  });
-  tweetG.append('circle').attr('r', function (d) {
-    return radiusScale(d.impact);
-  }).style('fill', '#75739f').style('stroke', 'black').style('stroke-width', '1px'); // tweetG.append('text')
-  //   .text(d => d.user + "-" + d.tweetTime.getHours())
-  // d3.selectAll('g').data([1, 2, 3 ,4]).exit().remove()
-  // d3.selectAll('g').select('text').text(d => d);
+  function buttonClick(datapoint) {
+    var maxValue = d3.max(incomingData, function (d) {
+      return parseFloat(d[datapoint]);
+    });
+    var colorScale = d3.scaleOrdinal().domain([0, maxValue]).range(d3.schemeBlues);
+    var radiusScale = d3.scaleLinear().domain([0, maxValue]).range([2, 20]);
+    d3.selectAll("g.overallG").select('circle').transition().duration(1000).attr('r', function (d) {
+      return radiusScale(d[datapoint]);
+    }).style('fill', function (p) {
+      return colorScale(p[datapoint]);
+    });
+  }
 
-  var filteredData = incomingData.filter(function (d) {
-    return d.impact > 0;
+  teamG.on('mouseover', highlightRegion);
+
+  function highlightRegion(d) {
+    d3.select(this).select("text").classed('active', true).attr('y', 10);
+    d3.selectAll('g.overallG').select('circle').attr('class', function (p) {
+      return p.region === d.region ? 'active' : 'inactive';
+    });
+    this.parentElement.appendChild(this);
+  }
+
+  teamG.on('mouseout', unhighlight);
+
+  function unhighlight(d) {
+    d3.selectAll('g.overallG').select('circle').attr('class', '');
+    d3.selectAll('g.overallG').select('text').classed('active', false).attr('y', 30);
+  }
+
+  teamG.select('text').style('pointer-events', 'none');
+  teamG.insert('image', 'text').attr('xlink:href', function (d) {
+    return "https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/images/".concat(d.team, ".png");
+  }).attr('width', '45px').attr('height', '20px').attr('x', -22).attr('y', -10);
+  var html = "\n  <table>\n  <tr>\n  <th>Statistics</th>\n  </tr>\n  <tr><td>Team Name</td><td class=\"data\"></td></tr>\n  <tr><td>Region</td><td class=\"data\"></td></tr>\n  <tr><td>Wins</td><td class=\"data\"></td></tr>\n  <tr><td>Losses</td><td class=\"data\"></td></tr>\n  <tr><td>Draws</td><td class=\"data\"></td></tr>\n  <tr><td>Points</td><td class=\"data\"></td></tr>\n  <tr><td>Goals For</td><td class=\"data\"></td></tr>\n  <tr><td>Goals Against</td><td class=\"data\"></td></tr>\n  <tr><td>Clean Sheets</td><td class=\"data\"></td></tr>\n  <tr><td>Yellow Cards</td><td class=\"data\"></td></tr>\n  <tr><td>Red Cards</td><td class=\"data\"></td></tr>\n  </table>\n  ";
+  d3.select('body').append('div').attr('id', 'infobox').html(html);
+  teamG.on('click', function teamClick(d) {
+    console.log(d);
+    d3.selectAll('td.data').data(d3.values(d)).html(function (d) {
+      return d;
+    });
   });
-  d3.selectAll('circle').data(filteredData, function (d) {
-    return JSON.stringify(d);
-  }).exit().remove();
 }
 },{"d3":"node_modules/d3/index.js"}],"../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -28108,5 +28106,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","tweets.js"], null)
-//# sourceMappingURL=/tweets.f05a821d.map
+},{}]},{},["../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","worldcup.js"], null)
+//# sourceMappingURL=/worldcup.76e35f4e.map

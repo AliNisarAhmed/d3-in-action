@@ -27855,89 +27855,37 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package":"node_modules/d3/dist/package.js","d3-array":"node_modules/d3-array/src/index.js","d3-axis":"node_modules/d3-axis/src/index.js","d3-brush":"node_modules/d3-brush/src/index.js","d3-chord":"node_modules/d3-chord/src/index.js","d3-collection":"node_modules/d3-collection/src/index.js","d3-color":"node_modules/d3-color/src/index.js","d3-contour":"node_modules/d3-contour/src/index.js","d3-dispatch":"node_modules/d3-dispatch/src/index.js","d3-drag":"node_modules/d3-drag/src/index.js","d3-dsv":"node_modules/d3-dsv/src/index.js","d3-ease":"node_modules/d3-ease/src/index.js","d3-fetch":"node_modules/d3-fetch/src/index.js","d3-force":"node_modules/d3-force/src/index.js","d3-format":"node_modules/d3-format/src/index.js","d3-geo":"node_modules/d3-geo/src/index.js","d3-hierarchy":"node_modules/d3-hierarchy/src/index.js","d3-interpolate":"node_modules/d3-interpolate/src/index.js","d3-path":"node_modules/d3-path/src/index.js","d3-polygon":"node_modules/d3-polygon/src/index.js","d3-quadtree":"node_modules/d3-quadtree/src/index.js","d3-random":"node_modules/d3-random/src/index.js","d3-scale":"node_modules/d3-scale/src/index.js","d3-scale-chromatic":"node_modules/d3-scale-chromatic/src/index.js","d3-selection":"node_modules/d3-selection/src/index.js","d3-shape":"node_modules/d3-shape/src/index.js","d3-time":"node_modules/d3-time/src/index.js","d3-time-format":"node_modules/d3-time-format/src/index.js","d3-timer":"node_modules/d3-timer/src/index.js","d3-transition":"node_modules/d3-transition/src/index.js","d3-voronoi":"node_modules/d3-voronoi/src/index.js","d3-zoom":"node_modules/d3-zoom/src/index.js"}],"tweets.js":[function(require,module,exports) {
+},{"./dist/package":"node_modules/d3/dist/package.js","d3-array":"node_modules/d3-array/src/index.js","d3-axis":"node_modules/d3-axis/src/index.js","d3-brush":"node_modules/d3-brush/src/index.js","d3-chord":"node_modules/d3-chord/src/index.js","d3-collection":"node_modules/d3-collection/src/index.js","d3-color":"node_modules/d3-color/src/index.js","d3-contour":"node_modules/d3-contour/src/index.js","d3-dispatch":"node_modules/d3-dispatch/src/index.js","d3-drag":"node_modules/d3-drag/src/index.js","d3-dsv":"node_modules/d3-dsv/src/index.js","d3-ease":"node_modules/d3-ease/src/index.js","d3-fetch":"node_modules/d3-fetch/src/index.js","d3-force":"node_modules/d3-force/src/index.js","d3-format":"node_modules/d3-format/src/index.js","d3-geo":"node_modules/d3-geo/src/index.js","d3-hierarchy":"node_modules/d3-hierarchy/src/index.js","d3-interpolate":"node_modules/d3-interpolate/src/index.js","d3-path":"node_modules/d3-path/src/index.js","d3-polygon":"node_modules/d3-polygon/src/index.js","d3-quadtree":"node_modules/d3-quadtree/src/index.js","d3-random":"node_modules/d3-random/src/index.js","d3-scale":"node_modules/d3-scale/src/index.js","d3-scale-chromatic":"node_modules/d3-scale-chromatic/src/index.js","d3-selection":"node_modules/d3-selection/src/index.js","d3-shape":"node_modules/d3-shape/src/index.js","d3-time":"node_modules/d3-time/src/index.js","d3-time-format":"node_modules/d3-time-format/src/index.js","d3-timer":"node_modules/d3-timer/src/index.js","d3-transition":"node_modules/d3-transition/src/index.js","d3-voronoi":"node_modules/d3-voronoi/src/index.js","d3-zoom":"node_modules/d3-zoom/src/index.js"}],"boxplot.js":[function(require,module,exports) {
 "use strict";
 
 var d3 = _interopRequireWildcard(require("d3"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+d3.csv('https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/boxplot.csv').then(drawBoxPlot);
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-d3.json("https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/tweets.json").then(function (data) {
-  draw(_toConsumableArray(data.tweets));
-  impact(_toConsumableArray(data.tweets));
-});
-
-function draw(incomingData) {
+function drawBoxPlot(incomingData) {
   console.log(incomingData);
-  var nestedTweets = d3.nest().key(function (d) {
-    return d.user;
-  }).entries(incomingData);
-  console.log(nestedTweets);
-  nestedTweets.forEach(function (d) {
-    d.numTweets = d.values.length;
-  });
-  var maxTweets = d3.max(nestedTweets, function (d) {
-    return d.numTweets;
-  });
-  var yScale = d3.scaleLinear().domain([0, maxTweets]).range([0, 500]);
-  d3.select('#svg').selectAll('rect').data(nestedTweets).enter().append('rect').attr('width', 50).attr('height', function (d) {
-    return yScale(d.numTweets);
-  }).attr('x', function (d, i) {
-    return i * 60;
-  }).attr('y', function (d) {
-    return 500 - yScale(d.numTweets);
-  }).style('fill', "#A23422").style('stroke', '#fd3453').style('stroke-width', "2px");
-}
+  var xScale = d3.scaleLinear().domain([1, 8]).range([20, 480]);
+  var yScale = d3.scaleLinear().domain([0, 100]).range([480, 20]);
+  var xAxis = d3.axisBottom().scale(xScale).tickSize(-480).tickValues([1, 2, 3, 4, 5, 6, 7, 8]);
+  var yAxis = d3.axisRight().scale(yScale).tickSize(480);
+  d3.select('#svgBox').append('g').attr('transform', 'translate(0, 480)').attr('id', 'xAxisG').call(xAxis);
+  d3.select('#svgBox').append('g').attr('transform', 'translate(0, 0)').attr('id', 'yAxisG').call(yAxis); // d3.select('#svgBox').selectAll('circle').data(incomingData).enter().append('circle')
+  //   .attr('r', 10)
+  //   .attr('cx', d => xScale(+d.day))
+  //   .attr('cy', d => yScale(d.median))
+  //   .style('fill', 'lightgray')
 
-function impact(incomingData) {
-  console.log(incomingData);
-  incomingData.forEach(function (d) {
-    d.impact = d.favorites.length + d.retweets.length;
-    d.tweetTime = new Date(d.timestamp);
+  d3.select('#svgBox').selectAll('g.box').data(incomingData).enter().append('g').attr("class", 'box').attr('transform', function (d) {
+    return "translate(".concat(xScale(+d.day), ", ").concat(yScale(d.median), ")");
+  }).each(function (d, i) {
+    d3.select(this).append('line').attr('x1', 0).attr('x2', 0).attr('y1', yScale(d.max) - yScale(d.median)).attr('y2', yScale(d.min) - yScale(d.median)).style('stroke', 'black').style('stroke-width', "4px");
+    d3.select(this).append('line').attr('class', 'max').attr('x1', -10).attr('x2', 10).attr('y1', yScale(d.max) - yScale(d.median)).attr('y2', yScale(d.max) - yScale(d.median)).style('stroke', 'black').style('stroke-width', "4px");
+    d3.select(this).append('line').attr('x1', -10).attr('x2', 10).attr('y1', yScale(d.min) - yScale(d.median)).attr('y2', yScale(d.min) - yScale(d.median)).style('stroke', 'black').style('stroke-width', "4px");
+    d3.select(this).append('rect').attr('class', 'range').attr('width', 20).attr('x', -10).attr('y', yScale(d.q3) - yScale(d.median)).attr('height', yScale(d.q1) - yScale(d.q3)).style('fill', 'white').style('stroke', 'black').style('stroke-width', '2px');
+    d3.select(this).append('line').attr('x1', -10).attr('x2', 10).attr('y1', 0).attr('y2', 0).style('stroke', 'gray').style('stroke-width', '4px');
   });
-  var maxImpact = d3.max(incomingData, function (d) {
-    return d.impact;
-  });
-  var startEnd = d3.extent(incomingData, function (d) {
-    return d.tweetTime;
-  });
-  var timeRamp = d3.scaleTime().domain(startEnd).range([20, 480]);
-  var yScale = d3.scaleLinear().domain([0, maxImpact]).range([0, 460]);
-  var radiusScale = d3.scaleLinear().domain([0, maxImpact]).range([5, 20]);
-  var colorScale = d3.scaleLinear().domain([0, maxImpact]).range(["blue", "red"]);
-  d3.select("#svg2").selectAll('circle').data(incomingData, JSON.stringify).enter().append('circle').attr('r', function (d) {
-    return radiusScale(d.impact);
-  }).attr('cx', function (d) {
-    return timeRamp(d.tweetTime);
-  }).attr('cy', function (d) {
-    return 480 - yScale(d.impact);
-  }).style('fill', function (d) {
-    return colorScale(d.impact);
-  }).style('stroke', 'black').style('stroke-width', '1px');
-  var tweetG = d3.select("#svg2").selectAll('g').data(incomingData).enter().append('g').attr('transform', function (d) {
-    return "translate(".concat(timeRamp(d.tweetTime), ", ").concat(480 - yScale(d.impact), ")");
-  });
-  tweetG.append('circle').attr('r', function (d) {
-    return radiusScale(d.impact);
-  }).style('fill', '#75739f').style('stroke', 'black').style('stroke-width', '1px'); // tweetG.append('text')
-  //   .text(d => d.user + "-" + d.tweetTime.getHours())
-  // d3.selectAll('g').data([1, 2, 3 ,4]).exit().remove()
-  // d3.selectAll('g').select('text').text(d => d);
-
-  var filteredData = incomingData.filter(function (d) {
-    return d.impact > 0;
-  });
-  d3.selectAll('circle').data(filteredData, function (d) {
-    return JSON.stringify(d);
-  }).exit().remove();
 }
 },{"d3":"node_modules/d3/index.js"}],"../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -28108,5 +28056,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","tweets.js"], null)
-//# sourceMappingURL=/tweets.f05a821d.map
+},{}]},{},["../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","boxplot.js"], null)
+//# sourceMappingURL=/boxplot.b60a66e2.map

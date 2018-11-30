@@ -27855,89 +27855,56 @@ Object.keys(_d3Zoom).forEach(function (key) {
     }
   });
 });
-},{"./dist/package":"node_modules/d3/dist/package.js","d3-array":"node_modules/d3-array/src/index.js","d3-axis":"node_modules/d3-axis/src/index.js","d3-brush":"node_modules/d3-brush/src/index.js","d3-chord":"node_modules/d3-chord/src/index.js","d3-collection":"node_modules/d3-collection/src/index.js","d3-color":"node_modules/d3-color/src/index.js","d3-contour":"node_modules/d3-contour/src/index.js","d3-dispatch":"node_modules/d3-dispatch/src/index.js","d3-drag":"node_modules/d3-drag/src/index.js","d3-dsv":"node_modules/d3-dsv/src/index.js","d3-ease":"node_modules/d3-ease/src/index.js","d3-fetch":"node_modules/d3-fetch/src/index.js","d3-force":"node_modules/d3-force/src/index.js","d3-format":"node_modules/d3-format/src/index.js","d3-geo":"node_modules/d3-geo/src/index.js","d3-hierarchy":"node_modules/d3-hierarchy/src/index.js","d3-interpolate":"node_modules/d3-interpolate/src/index.js","d3-path":"node_modules/d3-path/src/index.js","d3-polygon":"node_modules/d3-polygon/src/index.js","d3-quadtree":"node_modules/d3-quadtree/src/index.js","d3-random":"node_modules/d3-random/src/index.js","d3-scale":"node_modules/d3-scale/src/index.js","d3-scale-chromatic":"node_modules/d3-scale-chromatic/src/index.js","d3-selection":"node_modules/d3-selection/src/index.js","d3-shape":"node_modules/d3-shape/src/index.js","d3-time":"node_modules/d3-time/src/index.js","d3-time-format":"node_modules/d3-time-format/src/index.js","d3-timer":"node_modules/d3-timer/src/index.js","d3-transition":"node_modules/d3-transition/src/index.js","d3-voronoi":"node_modules/d3-voronoi/src/index.js","d3-zoom":"node_modules/d3-zoom/src/index.js"}],"tweets.js":[function(require,module,exports) {
+},{"./dist/package":"node_modules/d3/dist/package.js","d3-array":"node_modules/d3-array/src/index.js","d3-axis":"node_modules/d3-axis/src/index.js","d3-brush":"node_modules/d3-brush/src/index.js","d3-chord":"node_modules/d3-chord/src/index.js","d3-collection":"node_modules/d3-collection/src/index.js","d3-color":"node_modules/d3-color/src/index.js","d3-contour":"node_modules/d3-contour/src/index.js","d3-dispatch":"node_modules/d3-dispatch/src/index.js","d3-drag":"node_modules/d3-drag/src/index.js","d3-dsv":"node_modules/d3-dsv/src/index.js","d3-ease":"node_modules/d3-ease/src/index.js","d3-fetch":"node_modules/d3-fetch/src/index.js","d3-force":"node_modules/d3-force/src/index.js","d3-format":"node_modules/d3-format/src/index.js","d3-geo":"node_modules/d3-geo/src/index.js","d3-hierarchy":"node_modules/d3-hierarchy/src/index.js","d3-interpolate":"node_modules/d3-interpolate/src/index.js","d3-path":"node_modules/d3-path/src/index.js","d3-polygon":"node_modules/d3-polygon/src/index.js","d3-quadtree":"node_modules/d3-quadtree/src/index.js","d3-random":"node_modules/d3-random/src/index.js","d3-scale":"node_modules/d3-scale/src/index.js","d3-scale-chromatic":"node_modules/d3-scale-chromatic/src/index.js","d3-selection":"node_modules/d3-selection/src/index.js","d3-shape":"node_modules/d3-shape/src/index.js","d3-time":"node_modules/d3-time/src/index.js","d3-time-format":"node_modules/d3-time-format/src/index.js","d3-timer":"node_modules/d3-timer/src/index.js","d3-transition":"node_modules/d3-transition/src/index.js","d3-voronoi":"node_modules/d3-voronoi/src/index.js","d3-zoom":"node_modules/d3-zoom/src/index.js"}],"pieChart.js":[function(require,module,exports) {
 "use strict";
 
 var d3 = _interopRequireWildcard(require("d3"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+d3.json('https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/tweets.json').then(drawPieChart);
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-d3.json("https://raw.githubusercontent.com/emeeks/d3_in_action_2/master/data/tweets.json").then(function (data) {
-  draw(_toConsumableArray(data.tweets));
-  impact(_toConsumableArray(data.tweets));
-});
-
-function draw(incomingData) {
+function drawPieChart(incomingData) {
   console.log(incomingData);
   var nestedTweets = d3.nest().key(function (d) {
     return d.user;
-  }).entries(incomingData);
-  console.log(nestedTweets);
+  }).entries(incomingData.tweets);
   nestedTweets.forEach(function (d) {
     d.numTweets = d.values.length;
+    d.numFavorites = d3.sum(d.values, function (p) {
+      return p.favorites.length;
+    });
+    d.numRetweets = d3.sum(d.values, function (p) {
+      return p.retweets.length;
+    });
   });
-  var maxTweets = d3.max(nestedTweets, function (d) {
+  console.log(nestedTweets);
+  var pieChart = d3.pie();
+  pieChart.value(function (d) {
     return d.numTweets;
+  }).sort(null);
+  var tweetsPie = pieChart(nestedTweets);
+  pieChart.value(function (d) {
+    return d.numRetweets;
   });
-  var yScale = d3.scaleLinear().domain([0, maxTweets]).range([0, 500]);
-  d3.select('#svg').selectAll('rect').data(nestedTweets).enter().append('rect').attr('width', 50).attr('height', function (d) {
-    return yScale(d.numTweets);
-  }).attr('x', function (d, i) {
-    return i * 60;
-  }).attr('y', function (d) {
-    return 500 - yScale(d.numTweets);
-  }).style('fill', "#A23422").style('stroke', '#fd3453').style('stroke-width', "2px");
-}
+  var retweetsPie = pieChart(nestedTweets);
+  nestedTweets.forEach(function (d, i) {
+    d.tweetsSlice = tweetsPie[i];
+    d.retweetsSlice = retweetsPie[i];
+  });
+  var newArc = d3.arc(tweetsPie);
+  newArc.innerRadius(20).outerRadius(100);
+  var fillScale = d3.scaleOrdinal().range(['#fcd88a', '#cf7c1c', '#93c464', '#75744f']);
+  var svg = d3.select('#svgPie');
+  svg.append('g').attr('transform', 'translate(250, 250)').selectAll('path').data(yourPie).enter().append('path').attr('d', newArc(d.retweetsSlice)).style('fill', function (d, i) {
+    return fillScale(i);
+  }).style('stroke', 'black'); //   .style('stroke-width', '2px')
 
-function impact(incomingData) {
-  console.log(incomingData);
-  incomingData.forEach(function (d) {
-    d.impact = d.favorites.length + d.retweets.length;
-    d.tweetTime = new Date(d.timestamp);
+  pieChart.value(function (d) {
+    return d.numFavorites;
   });
-  var maxImpact = d3.max(incomingData, function (d) {
-    return d.impact;
-  });
-  var startEnd = d3.extent(incomingData, function (d) {
-    return d.tweetTime;
-  });
-  var timeRamp = d3.scaleTime().domain(startEnd).range([20, 480]);
-  var yScale = d3.scaleLinear().domain([0, maxImpact]).range([0, 460]);
-  var radiusScale = d3.scaleLinear().domain([0, maxImpact]).range([5, 20]);
-  var colorScale = d3.scaleLinear().domain([0, maxImpact]).range(["blue", "red"]);
-  d3.select("#svg2").selectAll('circle').data(incomingData, JSON.stringify).enter().append('circle').attr('r', function (d) {
-    return radiusScale(d.impact);
-  }).attr('cx', function (d) {
-    return timeRamp(d.tweetTime);
-  }).attr('cy', function (d) {
-    return 480 - yScale(d.impact);
-  }).style('fill', function (d) {
-    return colorScale(d.impact);
-  }).style('stroke', 'black').style('stroke-width', '1px');
-  var tweetG = d3.select("#svg2").selectAll('g').data(incomingData).enter().append('g').attr('transform', function (d) {
-    return "translate(".concat(timeRamp(d.tweetTime), ", ").concat(480 - yScale(d.impact), ")");
-  });
-  tweetG.append('circle').attr('r', function (d) {
-    return radiusScale(d.impact);
-  }).style('fill', '#75739f').style('stroke', 'black').style('stroke-width', '1px'); // tweetG.append('text')
-  //   .text(d => d.user + "-" + d.tweetTime.getHours())
-  // d3.selectAll('g').data([1, 2, 3 ,4]).exit().remove()
-  // d3.selectAll('g').select('text').text(d => d);
-
-  var filteredData = incomingData.filter(function (d) {
-    return d.impact > 0;
-  });
-  d3.selectAll('circle').data(filteredData, function (d) {
-    return JSON.stringify(d);
-  }).exit().remove();
+  d3.selectAll('path').data(pieChart(nestedTweets)).transition().duration(1000).attr('d', newArc); // pieChart.value(d => d.numRetweets)
+  // d3.selectAll('path').data(pieChart(nestedTweets)).transition().duration(1000).attr('d', newArc)
 }
 },{"d3":"node_modules/d3/index.js"}],"../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -27966,7 +27933,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34249" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42047" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -28108,5 +28075,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","tweets.js"], null)
-//# sourceMappingURL=/tweets.f05a821d.map
+},{}]},{},["../../.nvm/versions/node/v11.1.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","pieChart.js"], null)
+//# sourceMappingURL=/pieChart.ace68fb0.map
