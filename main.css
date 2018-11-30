@@ -1,42 +1,38 @@
-svg {
-  border: 1px solid red;
-}
-/* 
-text {
-  font-size: 10px;
-  text-anchor: middle;
-  fill: #4f442b;
-}
-g > text.active {
-  font-size: 30px;
-} */
-/* circle {
-  fill: #75739F;
-  stroke: black;
-  stroke-width: 1px;
-}
-circle.active {
-  fill: #FE9922;
-}
-circle.inactive {
-  fill: #C4B9AC;
+body {
+  margin: 0px;
+  overflow: hidden;
 }
 
-#infobox {
-  position: fixed;
-  left: 150px;
-  top: 20px;
-  z-index: 1;
-  background: white;
-  border: 1px black solid;
-  box-shadow: 10px 10px 5px #888888;
+circle {
+  fill: steelblue;
+  opacity: 0.3;
 }
-tr {
-  border: 1px gray solid;
+
+text {
+  font-size: 2em;
+  font-family: sans-serif;
 }
-td {
-  font-size: 10px;
+
+.tick text {
+  font-size: 1.5em;
+  fill:  #635F5D;
 }
-td.data {
-  font-weight: 900;
-} */
+
+.tick line {
+  stroke: #C0C0BB;
+  stroke-width: 1px;
+}
+
+.xAxisLabel, .yAxisLabel {
+  font-size: 3.5em;
+  fill:  #8E8883;
+}
+
+.title {
+  font-size: 2.6em; 
+  text-align: center;
+}
+
+.line-path {
+  fill: maroon;
+}

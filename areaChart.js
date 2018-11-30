@@ -6,7 +6,7 @@ import {
   scaleLinear, 
   extent,
   scaleTime,
-  line,
+  area,
   curveBasis,
 } from 'd3';
 
@@ -43,7 +43,7 @@ function render(data) {
 
   const xScale = scaleTime()
   .domain(extent(data, xValue))
-  .range([0, innerWidth]).nice();
+  .range([0, innerWidth]);
   
   const yScale = scaleLinear()
   .domain(extent(data, yValue))
@@ -57,6 +57,7 @@ function render(data) {
   .tickPadding(12);
   
   const xAxis = axisBottom(xScale)
+  .ticks(6)
   .tickSize(-innerHeight)
   .tickPadding(12);
   
@@ -101,12 +102,13 @@ function render(data) {
         .attr('text-anchor', 'middle')
     		.text(yAxisLabel)
   
-  const lineGen = line() 
+  const areaGen = area() 
     .x(d => xScale(xValue(d)))
-    .y(d => yScale(yValue(d)))
+    .y0(innerHeight)
+    .y1(d => yScale(yValue(d)))
     .curve(curveBasis);
 
   g.append('path')
       .attr('class', 'line-path')
-      .attr('d', lineGen(data))
+      .attr('d', areaGen(data))
 }
