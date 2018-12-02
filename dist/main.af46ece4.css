@@ -36,3 +36,13 @@ text {
 .line-path {
   fill: maroon;
 }
+
+.country {
+  fill: green;
+  stroke: black;
+  stroke-opacity: 0.3;
+}
+
+.sphere {
+  fill: #7786f1;
+}
