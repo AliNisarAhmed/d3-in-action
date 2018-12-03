@@ -40,9 +40,14 @@ text {
 .country {
   fill: green;
   stroke: black;
-  stroke-opacity: 0.3;
+  stroke-width: 0.1px;
+}
+
+.country:hover {
+  fill: red;
 }
 
 .sphere {
   fill: #7786f1;
 }
+
