@@ -10,7 +10,6 @@ const height = svg.attr('height');
 const projection = geoNaturalEarth1();
 const pathGenerator = geoPath().projection(projection);
 
-
 const g = svg.append('g');
 
 const colorLegendG = svg.append('g')
