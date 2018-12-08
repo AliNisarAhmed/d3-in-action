@@ -1,0 +1,69 @@
+/* CSS for worldCountriesTree */
+ body {
+  position: fixed;
+  overflow: hidden;
+  margin: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+path {
+  fill: none;
+  stroke: #57bdc3;
+}
+
+text {
+  text-shadow: 
+    -1px -1px 3px white,
+    -1px 1px 3px white,
+    1px -1px 3px white,
+    1px 1px 3px white;
+    pointer-events: none;
+    font-family: 'Playfair Display', serif;
+}
+
+circle {
+  stroke: 'black';
+  stroke-opacity: 0.5;
+} 
+
+/* CSS for worldCountriesTree */
+
+/*  88888888888888888888888888888888 */
+
+  
+circle {
+  fill: steelblue;
+  opacity: 0.3;
+} 
+ 
+text {
+  font-size: 2em;
+  font-family: sans-serif;
+} 
+ 
+.tick text {
+  font-size: 1.5em;
+  fill:  #635F5D;
+} 
+
+#menus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menus div {
+  margin: 15px;
+}
+
+#menus select {
+  font-size: 1em;
+}
+
+#menus select option {
+  font-size: 1rem;
+}
+

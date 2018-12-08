@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
   <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
-  <link rel="stylesheet" type="text/css" media="screen" href="./InteractiveChoropleth/choropleth.css">
+  <!-- <link rel="stylesheet" type="text/css" media="screen" href="./InteractiveChoropleth/choropleth.css"> -->
+  <link rel="stylesheet" type="text/css" media="screen" href="./scatterPlotWithMenus/scatterPlotWithMenu.css">
   <!-- <script src="tweets.js"></script> -->
   <!-- <script src="cities.js"></script> -->
   <!-- <script src="worldcup.js"></script> -->
@@ -24,6 +25,14 @@
   <!-- <svg id="svgHisto" height="500" width="1000"></svg> -->
   
   <!-- <svg id="svgArea" height="500" width="1000"></svg> -->
+
+  <div id="menus">
+      <span>Y Axis</span>
+      <div id="y-menu"></div>
+      <p class="vs">vs.</p>
+      <div id="x-menu"></div>
+      <span>X-Axis</span>
+  </div>
   
   <svg width="1000" height="500"></svg>
   
@@ -34,6 +43,6 @@
   <!-- <svg id="svg" height="500" width="500"></svg> -->
   
   
-  <script src="./InteractiveChoropleth/index.js"></script>
+  <script src="./scatterPlotWithMenus/scatterPlotWithMenu.js"></script>
 </body>
 </html>
