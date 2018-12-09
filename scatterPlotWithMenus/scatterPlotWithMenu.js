@@ -48,7 +48,7 @@ function render() {
     selectedOption: xColumn,
   });
 
-  dropDownMenu(select('#y-menu'), {
+  dropDownMenu(select('#y-menu'), {  // takes as input a div
     options: data.columns,
     onOptionClick: onYColumnClicked,
     selectedOption: yColumn,
